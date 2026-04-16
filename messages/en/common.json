@@ -1,0 +1,8 @@
+{
+  "name": "Red Sea System",
+  "logout": "Logout",
+  "message": {
+    "on-success": "On successful",
+    "on-error": "Failed"
+  }
+}
