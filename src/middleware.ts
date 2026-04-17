@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { auth } from "./app/[locale]/authentication/auth";
+import { auth } from "./lib/authentication/auth";
 
 const publicPages = [
   "/login",

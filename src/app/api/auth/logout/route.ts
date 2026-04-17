@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { signOut } from "@/app/[locale]/authentication/auth";
+import { signOut } from "@/lib/authentication/auth";
 
 export async function POST() {
   await signOut({ redirect: false });

@@ -6,7 +6,7 @@ import { getLocaleMessages } from "@/i18n/i18n-helpers";
 import type { IPageComponentProps, IPageProps } from "@/types/types";
 import { baseMetadata } from "@/utils/base-metadata";
 
-import { auth } from "../authentication/auth";
+import { auth } from "../../../lib/authentication/auth";
 
 export async function generateMetadata({
   params,

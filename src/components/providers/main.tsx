@@ -10,7 +10,7 @@ import queryClient from "@/lib/query-client";
 import { cn } from "@/utils/css-classes-merge";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { auth } from "../../app/[locale]/authentication/auth";
+import { auth } from "../../lib/authentication/auth";
 
 import "@/styles/globals.css";
 

@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import type { SignInResponse } from "next-auth/react";
 
-import { signIn } from "@/app/[locale]/authentication/auth";
+import { signIn } from "@/lib/authentication/auth";
 
 export async function POST(request: NextRequest) {
   try {
