@@ -22,7 +22,12 @@ export async function generateMetadata({
   return baseMetadata(locale, {
     title: `${authMessages["forgot-password"]} - ${commonMessages.name}`,
     description: authMessages["forgot-password-description"],
-    keywords: ["forgot password", "reset password", "authentication", "DMS"],
+    keywords: [
+      "forgot password",
+      "reset password",
+      "authentication",
+      "Template",
+    ],
   });
 }
 

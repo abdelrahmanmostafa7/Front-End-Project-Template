@@ -22,8 +22,8 @@ export async function generateMetadata({
   return baseMetadata(locale, {
     title: `${authMessages["sign-in"]} - ${commonMessages.name}`,
     description: authMessages["enter-credentials"],
-    keywords: ["login", "sign in", "authentication", "DMS"],
-    authors: [{ name: "DMS Team" }],
+    keywords: ["login", "sign in", "authentication", "Template"],
+    authors: [{ name: "Template Team" }],
   });
 }
 

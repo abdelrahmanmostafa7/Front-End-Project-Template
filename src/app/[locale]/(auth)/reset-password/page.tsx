@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return baseMetadata(locale, {
     title: `${authMessages["reset-password"]} - ${commonMessages.name}`,
     description: authMessages["password-description"],
-    keywords: ["reset password", "password reset", "authentication", "DMS"],
+    keywords: [
+      "reset password",
+      "password reset",
+      "authentication",
+      "Template",
+    ],
   });
 }
 

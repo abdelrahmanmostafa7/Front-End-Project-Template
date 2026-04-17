@@ -4,17 +4,17 @@ import type { Metadata } from "next";
 
 export const baseMetadata = (locale: string, overrideAttr?: Metadata) => ({
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   ),
-  title: "DMS",
-  description: "DMS",
-  keywords: ["DMS"],
-  authors: [{ name: "DMS Team" }],
+  title: "Template",
+  description: "Template",
+  keywords: ["Template"],
+  authors: [{ name: "Template Team" }],
   openGraph: {
     type: "website",
     locale: locale,
     alternateLocale: locale === "en" ? "ar" : "en",
-    siteName: "DMS",
+    siteName: "Template",
     // images: [
     //   {
     //     url: logoMain.src,
@@ -25,8 +25,8 @@ export const baseMetadata = (locale: string, overrideAttr?: Metadata) => ({
   },
   twitter: {
     card: "summary",
-    title: "DMS",
-    description: "DMS",
+    title: "Template",
+    description: "Template",
     // images: [logoMain.src],
   },
   alternates: {

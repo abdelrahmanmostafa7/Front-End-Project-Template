@@ -7,7 +7,7 @@ const client = axios.create({
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json; charset=UTF-8",
-    "X-TENANT-ID": "dms",
+    "X-TENANT-ID": "",
   },
   timeout,
 });
