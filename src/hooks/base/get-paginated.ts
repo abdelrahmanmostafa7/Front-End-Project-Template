@@ -1,10 +1,8 @@
-import client from "@/lib/client";
-import { IQueryParams } from "@/types/query-params";
-import { useQuery } from "@tanstack/react-query";
+import client from '@/lib/client';
+import { IQueryParams } from '@/types/query-params';
+import { useQuery } from '@tanstack/react-query';
 
-export interface IUsePaginatedOptions<
-  TParams extends IQueryParams = IQueryParams,
-> {
+export interface IUsePaginatedOptions<TParams extends IQueryParams = IQueryParams> {
   endPoint: string;
   queryKey: readonly string[];
   params?: TParams;
@@ -12,10 +10,7 @@ export interface IUsePaginatedOptions<
   defaultPageSize?: number;
 }
 
-export function useGetPaginated<
-  T,
-  TParams extends IQueryParams = IQueryParams,
->({
+export function useGetPaginated<T, TParams extends IQueryParams = IQueryParams>({
   endPoint,
   queryKey,
   params = {} as TParams,
@@ -40,7 +35,7 @@ export function useGetPaginated<
         },
       });
 
-      const totalCount = Number(res.headers["x-total-count"]) || 0;
+      const totalCount = Number(res.headers['x-total-count']) || 0;
 
       return {
         data: res.data as T[],

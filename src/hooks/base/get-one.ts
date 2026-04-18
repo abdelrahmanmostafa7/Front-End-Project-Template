@@ -1,7 +1,7 @@
 // useGetOne.ts
-import client from "@/lib/client";
-import type { IBaseOptions } from "@/types/types";
-import { useQuery } from "@tanstack/react-query";
+import client from '@/lib/client';
+import type { IBaseOptions } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
 
 export function useGetOne<TResponse, TError>({
   endPoint,

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useTranslations } from "next-intl";
+import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import {
   PaginationContent,
@@ -9,7 +9,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from '@/components/ui/pagination';
 
 type Props = {
   totalCount: number;
@@ -26,7 +26,7 @@ export default function Pagination({
   onPageChange,
   isLoading = false,
 }: Props) {
-  const t = useTranslations("common");
+  const t = useTranslations('common');
   const totalPages = Math.ceil(totalCount / pageSize);
   const maxVisiblePages = 5;
 
@@ -38,10 +38,7 @@ export default function Pagination({
     const items: React.ReactNode[] = [];
 
     let startPage = Math.max(2, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(
-      totalPages - 1,
-      currentPage + Math.floor(maxVisiblePages / 2),
-    );
+    let endPage = Math.min(totalPages - 1, currentPage + Math.floor(maxVisiblePages / 2));
 
     if (totalPages <= maxVisiblePages + 2) {
       startPage = 2;
@@ -52,11 +49,9 @@ export default function Pagination({
       <PaginationItem key={1}>
         <PaginationLink
           onClick={() => !isLoading && onPageChange(1)}
-          className={`w-7 h-7 flex items-center justify-center rounded text-xs cursor-pointer transition ${
-            currentPage === 1
-              ? "bg-blue-600 text-white"
-              : "hover:bg-gray-200 text-gray-700"
-          } ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
+          className={`flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs transition ${
+            currentPage === 1 ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'
+          } ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
         >
           1
         </PaginationLink>
@@ -66,7 +61,7 @@ export default function Pagination({
     if (startPage > 2) {
       items.push(
         <PaginationItem key="ellipsis-start">
-          <span className="w-7 h-7 flex items-center justify-center text-gray-500 text-xs">
+          <span className="flex h-7 w-7 items-center justify-center text-xs text-gray-500">
             ...
           </span>
         </PaginationItem>,
@@ -80,11 +75,9 @@ export default function Pagination({
       <PaginationItem key={i}>
         <PaginationLink
           onClick={() => !isLoading && onPageChange(i)}
-          className={`w-7 h-7 flex items-center justify-center rounded text-xs cursor-pointer transition ${
-            currentPage === i
-              ? "bg-blue-600 text-white"
-              : "hover:bg-gray-200 text-gray-700"
-          } ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
+          className={`flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs transition ${
+            currentPage === i ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'
+          } ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
         >
           {i}
         </PaginationLink>
@@ -96,7 +89,7 @@ export default function Pagination({
     if (endPage < totalPages - 1) {
       items.push(
         <PaginationItem key="ellipsis-end">
-          <span className="w-7 h-7 flex items-center justify-center text-gray-500 text-xs">
+          <span className="flex h-7 w-7 items-center justify-center text-xs text-gray-500">
             ...
           </span>
         </PaginationItem>,
@@ -108,11 +101,11 @@ export default function Pagination({
         <PaginationItem key={totalPages}>
           <PaginationLink
             onClick={() => !isLoading && onPageChange(totalPages)}
-            className={`w-7 h-7 flex items-center justify-center rounded text-xs cursor-pointer transition ${
+            className={`flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs transition ${
               currentPage === totalPages
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-200 text-gray-700"
-            } ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
+                ? 'bg-blue-600 text-white'
+                : 'text-gray-700 hover:bg-gray-200'
+            } ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
           >
             {totalPages}
           </PaginationLink>
@@ -127,15 +120,13 @@ export default function Pagination({
     <>
       {[1, 2, 3, 4, 5].map((key) => (
         <PaginationItem key={key}>
-          <div className="w-7 h-7 flex items-center justify-center rounded text-xs select-none border bg-gray-100 text-gray-400 border-gray-200 animate-pulse">
+          <div className="flex h-7 w-7 animate-pulse items-center justify-center rounded border border-gray-200 bg-gray-100 text-xs text-gray-400 select-none">
             {key}
           </div>
         </PaginationItem>
       ))}
       <PaginationItem>
-        <span className="w-7 h-7 flex items-center justify-center text-gray-500 text-xs">
-          ...
-        </span>
+        <span className="flex h-7 w-7 items-center justify-center text-xs text-gray-500">...</span>
       </PaginationItem>
     </>
   );
@@ -145,16 +136,14 @@ export default function Pagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() =>
-              !isLoading && currentPage > 1 && onPageChange(currentPage - 1)
-            }
-            className={`w-7 h-7 flex items-center justify-center rounded text-xs cursor-pointer transition ${
+            onClick={() => !isLoading && currentPage > 1 && onPageChange(currentPage - 1)}
+            className={`flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs transition ${
               currentPage === 1 || isLoading
-                ? "pointer-events-none opacity-50"
-                : "hover:bg-gray-200"
+                ? 'pointer-events-none opacity-50'
+                : 'hover:bg-gray-200'
             }`}
           >
-            {t("pagination.previous")}
+            {t('pagination.previous')}
           </PaginationPrevious>
         </PaginationItem>
 
@@ -162,18 +151,14 @@ export default function Pagination({
 
         <PaginationItem>
           <PaginationNext
-            onClick={() =>
-              !isLoading &&
-              currentPage < totalPages &&
-              onPageChange(currentPage + 1)
-            }
-            className={`w-7 h-7 flex items-center justify-center rounded text-xs cursor-pointer transition ${
+            onClick={() => !isLoading && currentPage < totalPages && onPageChange(currentPage + 1)}
+            className={`flex h-7 w-7 cursor-pointer items-center justify-center rounded text-xs transition ${
               currentPage === totalPages || isLoading
-                ? "pointer-events-none opacity-50"
-                : "hover:bg-gray-200"
+                ? 'pointer-events-none opacity-50'
+                : 'hover:bg-gray-200'
             }`}
           >
-            {t("pagination.next")}
+            {t('pagination.next')}
           </PaginationNext>
         </PaginationItem>
       </PaginationContent>

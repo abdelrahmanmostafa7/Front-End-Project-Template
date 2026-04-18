@@ -1,13 +1,11 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export interface IPaginationOptions {
   pageSize?: number;
   sortField?: string;
-  sortOrder?: "ASC" | "DESC";
+  sortOrder?: 'ASC' | 'DESC';
   page?: number;
 }
-
-
 
 export interface IUseHooksOptions {
   endPoint: string;
@@ -24,8 +22,7 @@ export interface IBaseOptions<TResponse, TError> {
   onError?: (error: TError) => void;
 }
 
-export interface IDataOptions<TData, TResponse, TError>
-  extends IBaseOptions<TResponse, TError> {
+export interface IDataOptions<TData, TResponse, TError> extends IBaseOptions<TResponse, TError> {
   data?: TData;
   id?: string | number;
 }

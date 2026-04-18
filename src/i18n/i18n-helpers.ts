@@ -1,4 +1,4 @@
-import { getMessages } from "next-intl/server";
+import { getMessages } from 'next-intl/server';
 
 /**
  * Enhanced function that handles both single and multiple namespaces
@@ -16,18 +16,13 @@ import { getMessages } from "next-intl/server";
  *
  * // Returns: { auth: {...}, common: {...} }
  */
-export async function getLocaleMessages(
-  locale: string,
-  namespaces: string | string[],
-) {
+export async function getLocaleMessages(locale: string, namespaces: string | string[]) {
   // Convert single namespace to array for consistent handling
   const namespaceArray = Array.isArray(namespaces) ? namespaces : [namespaces];
 
   try {
     const namespacePromises = namespaceArray.map(async (namespace) => {
-      const messages = await import(
-        `../../messages/${locale}/${namespace}.json`
-      );
+      const messages = await import(`../../messages/${locale}/${namespace}.json`);
       return { [namespace]: messages.default };
     });
 
@@ -45,7 +40,7 @@ export async function getLocaleMessages(
     return result;
   } catch (error) {
     console.error(`Failed to load namespaces for locale ${locale}:`, error);
-    throw new Error(`Failed to load namespaces: ${namespaceArray.join(", ")}`);
+    throw new Error(`Failed to load namespaces: ${namespaceArray.join(', ')}`);
   }
 }
 

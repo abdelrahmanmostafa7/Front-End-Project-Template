@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useTransition } from "react";
-import { useSearchParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
-import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Button } from '@/components/ui/button';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 export default function LanguageSwitcher() {
   const [, startTransition] = useTransition();
@@ -14,10 +14,7 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  function changeLanguage(
-    newLocale: string,
-    searchParams: URLSearchParams | null,
-  ) {
+  function changeLanguage(newLocale: string, searchParams: URLSearchParams | null) {
     startTransition(() => {
       const params = searchParams?.toString();
       const url = params ? `${pathname}?${params}` : pathname;
@@ -30,12 +27,10 @@ export default function LanguageSwitcher() {
       <Button
         variant="outline"
         size="sm"
-        onClick={() =>
-          changeLanguage(locale === "ar" ? "en" : "ar", searchParams)
-        }
-        className="rounded-full transition-all duration-200 hover:text-white hover:bg-primary font-medium text-primary border-1 border-primary cursor-pointer"
+        onClick={() => changeLanguage(locale === 'ar' ? 'en' : 'ar', searchParams)}
+        className="cursor-pointer rounded-full border-1 border-primary font-medium text-primary transition-all duration-200 hover:bg-primary hover:text-white"
       >
-        {locale === "ar" ? "En" : "Ar"}
+        {locale === 'ar' ? 'En' : 'Ar'}
       </Button>
     </div>
   );

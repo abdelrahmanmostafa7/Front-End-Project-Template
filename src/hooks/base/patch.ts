@@ -1,10 +1,10 @@
-import { useLocale, useTranslations } from "next-intl";
-import { toast } from "react-toastify";
+import { useLocale, useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
 
-import client from "@/lib/client";
-import queryClient from "@/lib/query-client";
-import type { IDataOptions } from "@/types/types";
-import { useMutation } from "@tanstack/react-query";
+import client from '@/lib/client';
+import queryClient from '@/lib/query-client';
+import type { IDataOptions } from '@/types/types';
+import { useMutation } from '@tanstack/react-query';
 
 export function usePatch<TData, TResponse, TError>({
   endPoint,
@@ -13,17 +13,13 @@ export function usePatch<TData, TResponse, TError>({
   onError,
 }: IDataOptions<TData, TResponse, TError>) {
   const locale = useLocale();
-  const t = useTranslations("common.message");
+  const t = useTranslations('common.message');
 
-  const mutation = useMutation<
-    TResponse,
-    TError,
-    { id?: string | number; data: TData }
-  >({
+  const mutation = useMutation<TResponse, TError, { id?: string | number; data: TData }>({
     mutationFn: async ({ id, data }) => {
-      const res = await client.patch(`${endPoint}${id ? `/${id}` : ""}`, data, {
+      const res = await client.patch(`${endPoint}${id ? `/${id}` : ''}`, data, {
         headers: {
-          "Accept-Language": locale,
+          'Accept-Language': locale,
         },
       });
       return res.data;
@@ -34,7 +30,7 @@ export function usePatch<TData, TResponse, TError>({
       if (onSuccess) {
         onSuccess(res);
       } else {
-        toast.success(t("on-success"));
+        toast.success(t('on-success'));
       }
     },
 
@@ -42,7 +38,7 @@ export function usePatch<TData, TResponse, TError>({
       if (onError) {
         onError(error);
       } else {
-        toast.error(t("on-error"));
+        toast.error(t('on-error'));
       }
     },
   });

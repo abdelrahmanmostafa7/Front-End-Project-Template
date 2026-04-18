@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseCountdownOptions {
   autoStart?: boolean;
@@ -12,9 +12,7 @@ interface UseCountdownReturn {
   resetCountdown: () => void;
 }
 
-export const useCountdown = (
-  options: UseCountdownOptions = {},
-): UseCountdownReturn => {
+export const useCountdown = (options: UseCountdownOptions = {}): UseCountdownReturn => {
   const { autoStart = false } = options;
   const [countdown, setCountdown] = useState(0);
   const [isActive, setIsActive] = useState(false);

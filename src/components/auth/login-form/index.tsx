@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -14,24 +14,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import type { LoginInput } from "@/hooks/auth/login";
-import { createLoginSchema, useLogin } from "@/hooks/auth/login";
-import { Link } from "@/i18n/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import type { LoginInput } from '@/hooks/auth/login';
+import { createLoginSchema, useLogin } from '@/hooks/auth/login';
+import { Link } from '@/i18n/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function LoginForm() {
   const { locale } = useParams();
   const [showPassword, setShowPassword] = useState(false);
-  const t = useTranslations("auth");
+  const t = useTranslations('auth');
   const { mutate: login, isPending } = useLogin();
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(createLoginSchema(t)),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -47,12 +47,12 @@ export default function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="email">{t("email")}</FormLabel>
+              <FormLabel htmlFor="email">{t('email')}</FormLabel>
               <FormControl>
                 <Input
                   id="email"
                   type="email"
-                  placeholder={t("enter-email")}
+                  placeholder={t('enter-email')}
                   autoComplete="email"
                   {...field}
                 />
@@ -67,13 +67,13 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem className="mb-1">
-              <FormLabel htmlFor="password">{t("password")}</FormLabel>
+              <FormLabel htmlFor="password">{t('password')}</FormLabel>
               <div className="relative">
                 <FormControl>
                   <Input
                     id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder={t("enter-password")}
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder={t('enter-password')}
                     autoComplete="current-password"
                     className="pr-10"
                     {...field}
@@ -83,15 +83,11 @@ export default function LoginForm() {
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() => setShowPassword(!showPassword)}
                   tabIndex={-1}
                 >
-                  {!showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
+                  {!showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </Button>
               </div>
               <FormMessage />
@@ -102,20 +98,20 @@ export default function LoginForm() {
         <Link
           href={`/forgot-password`}
           className={`inline-block text-sm underline-offset-4 hover:underline ${
-            locale === "ar" ? "mr-auto" : "ml-auto"
+            locale === 'ar' ? 'mr-auto' : 'ml-auto'
           }`}
         >
-          {t("forgot-password")}
+          {t('forgot-password')}
         </Link>
 
-        <Button type="submit" className="w-full h-10" disabled={isPending}>
+        <Button type="submit" className="h-10 w-full" disabled={isPending}>
           {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {t("signing-in")}
+              {t('signing-in')}
             </>
           ) : (
-            t("sign-in")
+            t('sign-in')
           )}
         </Button>
       </form>

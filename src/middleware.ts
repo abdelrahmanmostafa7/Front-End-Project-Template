@@ -1,22 +1,13 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
-import { auth } from "./lib/authentication/auth";
+import { auth } from './lib/authentication/auth';
 
-const publicPages = [
-  "/login",
-  "/images",
-  "/favicon.ico",
-  "/forgot-password",
-  "/reset-password",
-];
+const publicPages = ['/login', '/images', '/favicon.ico', '/forgot-password', '/reset-password'];
 
 export default async function middleware(req: NextRequest) {
   // Skip for specific paths
-  if (
-    req.nextUrl.pathname.includes("/api/auth") ||
-    req.nextUrl.pathname.includes("/_next")
-  ) {
+  if (req.nextUrl.pathname.includes('/api/auth') || req.nextUrl.pathname.includes('/_next')) {
     return NextResponse.next();
   }
 
@@ -26,7 +17,7 @@ export default async function middleware(req: NextRequest) {
 
   // Redirect to default locale if no locale in pathname
   if (!pathnameHasLocale) {
-    const defaultLocale = "ar"; // Default locale
+    const defaultLocale = 'ar'; // Default locale
     const newUrl = new URL(`/${defaultLocale}${pathname}`, req.url);
 
     newUrl.search = req.nextUrl.search;
@@ -35,7 +26,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   // Extract locale from pathname
-  const locale = pathname.split("/")[1];
+  const locale = pathname.split('/')[1];
 
   // Step 2: Check authentication
   const session = await auth();
@@ -59,5 +50,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|assets).*)"],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|assets).*)'],
 };

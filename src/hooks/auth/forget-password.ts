@@ -1,41 +1,37 @@
-import { useTranslations } from "next-intl";
-import type { AxiosError } from "axios";
-import { toast } from "react-toastify";
-import z from "zod";
+import { useTranslations } from 'next-intl';
+import type { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import z from 'zod';
 
-import type { IApiResError } from "@/types/api-res-error";
-import type { IApiResSuccess } from "@/types/api-res-success";
+import type { IApiResError } from '@/types/api-res-error';
+import type { IApiResSuccess } from '@/types/api-res-success';
 
-import { useCreate } from "../base/create";
+import { useCreate } from '../base/create';
 
 export const createForgotPasswordSchema = (t: (key: string) => string) =>
   z.object({
-    email: z
-      .email(t("validation.email-invalid"))
-      .nonempty(t("validation.email-required")),
+    email: z.email(t('validation.email-invalid')).nonempty(t('validation.email-required')),
   });
 
-export type ForgotPasswordInput = z.infer<
-  ReturnType<typeof createForgotPasswordSchema>
->;
+export type ForgotPasswordInput = z.infer<ReturnType<typeof createForgotPasswordSchema>>;
 
 export const useForgetPassword = () => {
-  const t = useTranslations("auth");
+  const t = useTranslations('auth');
   const { mutate, isPending } = useCreate<
     ForgotPasswordInput,
     IApiResSuccess<ForgotPasswordInput>,
     AxiosError<IApiResError>
   >({
-    endPoint: "/api/auth/forget-password",
-    queryKey: ["/api/auth/forget-password"],
+    endPoint: '/api/auth/forget-password',
+    queryKey: ['/api/auth/forget-password'],
     onSuccess: () => {
-      toast.success(t("password-reset-email-sent"));
+      toast.success(t('password-reset-email-sent'));
     },
     onError: (error) => {
       if (error.response?.status === 404) {
-        toast.error(t("user-not-found"));
+        toast.error(t('user-not-found'));
       } else {
-        toast.error(t("failed-to-send-reset-email"));
+        toast.error(t('failed-to-send-reset-email'));
       }
     },
   });

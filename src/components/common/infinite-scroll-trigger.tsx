@@ -1,15 +1,12 @@
-"use client";
-import { useEffect, useRef } from "react";
+'use client';
+import { useEffect, useRef } from 'react';
 
 type Props = {
   onIntersect: () => void;
   enabled?: boolean;
 };
 
-export default function InfiniteScrollTrigger({
-  onIntersect,
-  enabled = true,
-}: Props) {
+export default function InfiniteScrollTrigger({ onIntersect, enabled = true }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

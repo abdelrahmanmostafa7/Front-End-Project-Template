@@ -1,5 +1,5 @@
-"use client";
-import { QueryClient } from "@tanstack/react-query";
+'use client';
+import { QueryClient } from '@tanstack/react-query';
 
 // Create a client
 const queryClient = new QueryClient();

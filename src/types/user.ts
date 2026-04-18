@@ -1,4 +1,4 @@
-import type { User as NextAuthUser } from "next-auth";
+import type { User as NextAuthUser } from 'next-auth';
 
 export type UserType = NextAuthUser & {
   id?: string;

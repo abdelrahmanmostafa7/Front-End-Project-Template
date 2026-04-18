@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useCallback, useMemo } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useCallback, useMemo } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
-} from "lucide-react";
+} from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
-import { cn } from "@/utils/css-classes-merge";
+import { cn } from '@/lib/utils';
 
 type TablePaginationProps = {
   totalCount: number;
@@ -36,8 +36,8 @@ export default function PaginationBar({
   // const t = useTranslations("common.pagination");
 
   // Get current page and limit from URL params
-  const currentPage = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || defaultLimit;
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const limit = Number(searchParams.get('limit')) || defaultLimit;
 
   // Calculate total pages
   const totalPages = Math.max(1, Math.ceil(totalCount / limit));
@@ -79,7 +79,7 @@ export default function PaginationBar({
 
   // Generate page numbers to display
   const pageNumbers = useMemo(() => {
-    const pages: (number | "ellipsis")[] = [];
+    const pages: (number | 'ellipsis')[] = [];
     const maxVisiblePages = 5;
 
     if (totalPages <= maxVisiblePages) {
@@ -92,7 +92,7 @@ export default function PaginationBar({
       pages.push(1);
 
       if (safePage > 3) {
-        pages.push("ellipsis");
+        pages.push('ellipsis');
       }
 
       // Pages around current
@@ -104,7 +104,7 @@ export default function PaginationBar({
       }
 
       if (safePage < totalPages - 2) {
-        pages.push("ellipsis");
+        pages.push('ellipsis');
       }
 
       // Always show last page
@@ -125,12 +125,9 @@ export default function PaginationBar({
 
   return (
     <div
-      className={cn(
-        "flex flex-col sm:flex-row items-center justify-between gap-4 py-4",
-        className,
-      )}
+      className={cn('flex flex-col items-center justify-between gap-4 py-4 sm:flex-row', className)}
     >
-      {" "}
+      {' '}
       {/* Pagination controls */}
       <div className="flex items-center gap-1">
         {/* First page */}
@@ -160,7 +157,7 @@ export default function PaginationBar({
         {/* Page numbers */}
         <div className="flex items-center gap-1">
           {pageNumbers.map((pageNum, index) =>
-            pageNum === "ellipsis" ? (
+            pageNum === 'ellipsis' ? (
               <span
                 key={`ellipsis-${index}`}
                 className="flex size-8 items-center justify-center text-muted-foreground"
@@ -170,12 +167,12 @@ export default function PaginationBar({
             ) : (
               <Button
                 key={pageNum}
-                variant={pageNum === safePage ? "default" : "outline"}
+                variant={pageNum === safePage ? 'default' : 'outline'}
                 size="icon"
                 className="size-8"
                 onClick={() => goToPage(pageNum)}
                 // aria-label={{ page: pageNum }}
-                aria-current={pageNum === safePage ? "page" : undefined}
+                aria-current={pageNum === safePage ? 'page' : undefined}
               >
                 {pageNum}
               </Button>

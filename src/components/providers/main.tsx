@@ -1,18 +1,18 @@
-import Head from "next/head";
-import { SessionProvider } from "next-auth/react";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import type { ReactNode } from "react";
-import { ToastContainer } from "react-toastify";
+import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import type { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import { ShadcnProvider } from "@/components/providers/shadcn";
-import queryClient from "@/lib/query-client";
-import { cn } from "@/utils/css-classes-merge";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { ShadcnProvider } from '@/components/providers/shadcn';
+import queryClient from '@/lib/query-client';
+import { cn } from '@/lib/utils';
+import { QueryClientProvider } from '@tanstack/react-query';
 
-import { auth } from "../../lib/authentication/auth";
+import { auth } from '../../lib/authentication/auth';
 
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 
 type Props = Readonly<{
   children: ReactNode;
@@ -26,25 +26,19 @@ export default async function Provider({ children, locale }: Readonly<Props>) {
   const session = await auth();
 
   return (
-    <html
-      lang={locale}
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      suppressHydrationWarning
-    >
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className={cn("bg-white")}>
+      <body className={cn('bg-white')}>
         <SessionProvider session={session}>
           <NextIntlClientProvider messages={messages} locale={locale}>
             <QueryClientProvider client={queryClient}>
               <ShadcnProvider>
                 <div className="">{children}</div>
-                <ToastContainer
-                  position={locale === "ar" ? "bottom-left" : "bottom-right"}
-                />
+                <ToastContainer position={locale === 'ar' ? 'bottom-left' : 'bottom-right'} />
               </ShadcnProvider>
             </QueryClientProvider>
           </NextIntlClientProvider>

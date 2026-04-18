@@ -1,12 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
-import { CheckCircle, Eye, EyeOff, Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { CheckCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -14,30 +14,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import type { ResetPasswordInput } from "@/hooks/auth/reset-password";
-import {
-  resetPasswordFormSchema,
-  useResetPassword,
-} from "@/hooks/auth/reset-password";
-import { useRouter } from "@/i18n/navigation";
-import { Link } from "@/i18n/navigation";
-import { useCountdown } from "@/utils/countdown";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import type { ResetPasswordInput } from '@/hooks/auth/reset-password';
+import { resetPasswordFormSchema, useResetPassword } from '@/hooks/auth/reset-password';
+import { useRouter } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
+import { useCountdown } from '@/utils/countdown';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface ResetPasswordPreviewProps {
   token?: string;
 }
 
-export default function ResetPasswordPreview({
-  token,
-}: ResetPasswordPreviewProps) {
+export default function ResetPasswordPreview({ token }: ResetPasswordPreviewProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const { locale } = useParams();
-  const t = useTranslations("auth");
+  const t = useTranslations('auth');
   const router = useRouter();
   const { mutate, isPending, isSuccess } = useResetPassword();
 
@@ -45,7 +40,7 @@ export default function ResetPasswordPreview({
 
   const form = useForm<ResetPasswordInput>({
     resolver: zodResolver(resetPasswordFormSchema(t)),
-    defaultValues: { newPassword: "", confirmPassword: "", token },
+    defaultValues: { newPassword: '', confirmPassword: '', token },
   });
 
   useEffect(() => {
@@ -58,13 +53,13 @@ export default function ResetPasswordPreview({
   // Handle redirect when countdown reaches 0
   useEffect(() => {
     if (countdown === 0 && showSuccess) {
-      router.push("/login");
+      router.push('/login');
     }
   }, [countdown, showSuccess, router]);
 
   function onSubmit(values: ResetPasswordInput) {
     if (!token) {
-      return toast.error(t("invalid-missing-token"));
+      return toast.error(t('invalid-missing-token'));
     }
     mutate({
       data: {
@@ -78,31 +73,24 @@ export default function ResetPasswordPreview({
   return (
     <>
       {!token ? (
-        <Button
-          onClick={() => router.push(`/forgot-password`)}
-          className="w-full"
-        >
-          {t("request-new-reset-link")}
+        <Button onClick={() => router.push(`/forgot-password`)} className="w-full">
+          {t('request-new-reset-link')}
         </Button>
       ) : showSuccess ? (
-        <div className="text-center space-y-4">
+        <div className="space-y-4 text-center">
           <div className="flex justify-center">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
           <div className="space-y-2">
             <h3 className="text-lg font-semibold text-green-700">
-              {t("password-reset-successful")}
+              {t('password-reset-successful')}
             </h3>
             <p className="text-sm text-gray-600">
-              {t("redirecting-to-login")} {countdown}s
+              {t('redirecting-to-login')} {countdown}s
             </p>
           </div>
-          <Button
-            onClick={() => router.push("/login")}
-            className="w-full"
-            variant="outline"
-          >
-            {t("go-to-login-now")}
+          <Button onClick={() => router.push('/login')} className="w-full" variant="outline">
+            {t('go-to-login-now')}
           </Button>
         </div>
       ) : (
@@ -114,13 +102,13 @@ export default function ResetPasswordPreview({
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="newPassword">{t("password")}</FormLabel>
+                  <FormLabel htmlFor="newPassword">{t('password')}</FormLabel>
                   <div className="relative">
                     <FormControl>
                       <Input
                         id="newPassword"
-                        type={showPassword ? "text" : "password"}
-                        placeholder={t("enter-new-password")}
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder={t('enter-new-password')}
                         autoComplete="new-password"
                         className="pr-10"
                         {...field}
@@ -131,15 +119,11 @@ export default function ResetPasswordPreview({
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      className="absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent"
                       onClick={() => setShowPassword(!showPassword)}
                       tabIndex={-1}
                     >
-                      {!showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
+                      {!showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
                   <FormMessage />
@@ -153,22 +137,20 @@ export default function ResetPasswordPreview({
               name="confirmPassword"
               rules={{
                 validate: (value) => {
-                  if (value !== form.getValues("newPassword")) {
-                    return t("validation.passwords-must-match");
+                  if (value !== form.getValues('newPassword')) {
+                    return t('validation.passwords-must-match');
                   }
                 },
               }}
               render={({ field }) => (
                 <FormItem className="mb-1">
-                  <FormLabel htmlFor="confirmPassword">
-                    {t("confirm-new-password")}
-                  </FormLabel>
+                  <FormLabel htmlFor="confirmPassword">{t('confirm-new-password')}</FormLabel>
                   <div className="relative">
                     <FormControl>
                       <Input
                         id="confirmPassword"
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder={t("confirm-new-password")}
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder={t('confirm-new-password')}
                         autoComplete="new-password"
                         className="pr-10"
                         {...field}
@@ -178,10 +160,8 @@ export default function ResetPasswordPreview({
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      className="absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       tabIndex={-1}
                     >
                       {!showConfirmPassword ? (
@@ -198,20 +178,20 @@ export default function ResetPasswordPreview({
             <Link
               href="/forgot-password"
               className={`inline-block text-sm underline-offset-4 hover:underline ${
-                locale === "ar" ? "mr-auto" : "ml-auto"
+                locale === 'ar' ? 'mr-auto' : 'ml-auto'
               }`}
             >
-              {t("request-new-reset-link")}
+              {t('request-new-reset-link')}
             </Link>
 
-            <Button type="submit" className="w-full h-10" disabled={isPending}>
+            <Button type="submit" className="h-10 w-full" disabled={isPending}>
               {isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {t("resetting-password")}
+                  {t('resetting-password')}
                 </>
               ) : (
-                t("reset-password")
+                t('reset-password')
               )}
             </Button>
           </form>

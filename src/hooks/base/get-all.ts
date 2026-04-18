@@ -1,6 +1,6 @@
-import client from "@/lib/client";
-import type { IUseHooksOptions } from "@/types/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import client from '@/lib/client';
+import type { IUseHooksOptions } from '@/types/types';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export function useGetAll({
   endPoint,
@@ -9,7 +9,7 @@ export function useGetAll({
   enabled = true,
   params = {},
 }: IUseHooksOptions & { params?: Record<string, string | number> }) {
-  const { pageSize = 20, sortField = "id", sortOrder = "ASC" } = pagination;
+  const { pageSize = 20, sortField = 'id', sortOrder = 'ASC' } = pagination;
 
   return useInfiniteQuery({
     queryKey: [...queryKey, params],
@@ -24,7 +24,7 @@ export function useGetAll({
         },
       });
 
-      const totalCount = Number(res.headers["x-total-count"]);
+      const totalCount = Number(res.headers['x-total-count']);
       const totalPages = Math.ceil(totalCount / pageSize);
 
       return {

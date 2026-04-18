@@ -1,12 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Format all files
-pnpm prettier --write .
-
-# Add formatted files to staging
-git add .
-
-# Run lint and build
-pnpm lint || exit 1
-pnpm build || exit 1
+pnpm exec lint-staged

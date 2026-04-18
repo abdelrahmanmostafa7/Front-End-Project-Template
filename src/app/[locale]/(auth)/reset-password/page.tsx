@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import ResetPasswordPreview from "@/components/auth/reset-password";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { getLocaleMessages } from "@/i18n/i18n-helpers";
-import type { IPageComponentProps } from "@/types/types";
-import { baseMetadata } from "@/utils/base-metadata";
+import ResetPasswordPreview from '@/components/auth/reset-password';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { getLocaleMessages } from '@/i18n/i18n-helpers';
+import type { IPageComponentProps } from '@/types/types';
+import { baseMetadata } from '@/utils/base-metadata';
 
 type Props = IPageComponentProps & {
   searchParams: Promise<{ token?: string }>;
@@ -18,36 +12,31 @@ type Props = IPageComponentProps & {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const authMessages = await getLocaleMessages(locale, "auth");
-  const commonMessages = await getLocaleMessages(locale, "common");
+  const authMessages = await getLocaleMessages(locale, 'auth');
+  const commonMessages = await getLocaleMessages(locale, 'common');
 
   return baseMetadata(locale, {
-    title: `${authMessages["reset-password"]} - ${commonMessages.name}`,
-    description: authMessages["password-description"],
-    keywords: [
-      "reset password",
-      "password reset",
-      "authentication",
-      "Template",
-    ],
+    title: `${authMessages['reset-password']} - ${commonMessages.name}`,
+    description: authMessages['password-description'],
+    keywords: ['reset password', 'password reset', 'authentication', 'Template'],
   });
 }
 
 export default async function ResetPassword({ params, searchParams }: Props) {
   const { locale } = await params;
   const { token } = await searchParams;
-  const authMessages = await getLocaleMessages(locale, "auth");
+  const authMessages = await getLocaleMessages(locale, 'auth');
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-center">
-          {authMessages["reset-password"]}
+        <CardTitle className="text-center text-2xl font-bold">
+          {authMessages['reset-password']}
         </CardTitle>
         <CardDescription className="text-center">
           {token
-            ? authMessages["password-description"]
-            : authMessages["use-valid-link-description"]}
+            ? authMessages['password-description']
+            : authMessages['use-valid-link-description']}
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -1,20 +1,20 @@
-import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { AxiosError } from "axios";
+import type { NextAuthConfig } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { AxiosError } from 'axios';
 
-import client from "@/lib/client";
+import client from '@/lib/client';
 
 export const authConfig = {
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   providers: [
     Credentials({
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-        token: { label: "Token", type: "text" },
-        user: { label: "User", type: "text" },
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+        token: { label: 'Token', type: 'text' },
+        user: { label: 'User', type: 'text' },
       },
       async authorize(credentials) {
         const { email, password, token, user } = credentials as {
@@ -27,39 +27,39 @@ export const authConfig = {
         // Case 1: Direct user and token provided (from OTP verification)
         if (token && user) {
           try {
-            const userData = typeof user === "string" ? JSON.parse(user) : user;
+            const userData = typeof user === 'string' ? JSON.parse(user) : user;
             return {
               ...userData,
               token,
-              role: userData.role || "user",
+              role: userData.role || 'user',
             };
           } catch (error) {
-            console.error("Error parsing user data:", error);
+            console.error('Error parsing user data:', error);
             return null;
           }
         }
 
         // Case 2: Regular email/password login
         try {
-          const response = await client.post("/api/auth/login", {
+          const response = await client.post('/api/auth/login', {
             email,
             password,
           });
           if (!response?.data?.user || !response?.data?.token) {
-            throw new Error("Invalid credentials");
+            throw new Error('Invalid credentials');
           }
 
           return {
             ...response.data.user,
             token: response.data.token,
-            role: response.data.user.role || "user",
+            role: response.data.user.role || 'user',
           };
         } catch (error) {
-          console.error("Authentication error:", error);
+          console.error('Authentication error:', error);
           if (error instanceof AxiosError && error.response) {
-            console.error("Error response data:", error.response.data);
-            console.error("Error response status:", error.response.status);
-            console.error("Error response headers:", error.response.headers);
+            console.error('Error response data:', error.response.data);
+            console.error('Error response status:', error.response.status);
+            console.error('Error response headers:', error.response.headers);
             // Don't throw error, return null instead
             // NextAuth will handle this as failed authentication
             return null;
@@ -70,18 +70,18 @@ export const authConfig = {
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
     maxAge: 604800, // 7 days in seconds
   },
-  ...(process.env.NODE_ENV === "production"
+  ...(process.env.NODE_ENV === 'production'
     ? {
         cookies: {
           sessionToken: {
             name: `__Secure-next-auth.session-token`,
             options: {
               httpOnly: true,
-              sameSite: "lax",
-              path: "/",
+              sameSite: 'lax',
+              path: '/',
               secure: true, // secure only in production
             },
           },
@@ -91,18 +91,14 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isPublicPath = [
-        "/login",
-        "/_next",
-        "/api/auth",
-        /\/images\//,
-        "/favicon.ico",
-      ].some((path) => {
-        if (typeof path === "string") {
-          return nextUrl.pathname.includes(path);
-        }
-        return path.test(nextUrl.pathname);
-      });
+      const isPublicPath = ['/login', '/_next', '/api/auth', /\/images\//, '/favicon.ico'].some(
+        (path) => {
+          if (typeof path === 'string') {
+            return nextUrl.pathname.includes(path);
+          }
+          return path.test(nextUrl.pathname);
+        },
+      );
 
       return isPublicPath ? true : isLoggedIn;
     },
@@ -111,7 +107,7 @@ export const authConfig = {
         token.id = user.id as string;
         token.email = user.email;
         token.token = user.token;
-        token.role = user.role || "user";
+        token.role = user.role || 'user';
       }
       return token;
     },

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 type UploadProps = {
   fileUrl: string;
@@ -6,15 +6,11 @@ type UploadProps = {
   onProgress?: (percent: number) => void;
 };
 
-export async function uploadToS3({
-  fileUrl,
-  file,
-  onProgress,
-}: UploadProps): Promise<void> {
+export async function uploadToS3({ fileUrl, file, onProgress }: UploadProps): Promise<void> {
   try {
     await axios.put(fileUrl, file, {
       headers: {
-        "Content-Type": file.type,
+        'Content-Type': file.type,
       },
 
       timeout: 60_000,
@@ -31,12 +27,12 @@ export async function uploadToS3({
     });
   } catch (error) {
     if (axios.isCancel(error)) {
-      console.warn("Upload cancelled");
+      console.warn('Upload cancelled');
       return;
     }
 
-    console.error("S3 upload failed:", error);
+    console.error('S3 upload failed:', error);
 
-    throw new Error("File upload failed");
+    throw new Error('File upload failed');
   }
 }
