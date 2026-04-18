@@ -3,7 +3,7 @@
 import * as React from "react";
 import { XIcon } from "lucide-react";
 
-import { cn } from "@/utils/css-classes-merge";
+import { cn } from "@/lib/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 function Dialog({

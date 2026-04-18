@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 import type { DropEvent, DropzoneOptions, FileRejection } from "react-dropzone";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/css-classes-merge";
+import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 type DropzoneContextType = {
